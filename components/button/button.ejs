@@ -1,0 +1,37 @@
+<%
+  const btnLabel = typeof label !== 'undefined' ? label : 'Button';
+  const btnVariant = typeof variant !== 'undefined' ? variant : 'primary';
+  const btnSize = typeof size !== 'undefined' ? size : 'md';
+  const btnType = typeof type !== 'undefined' ? type : 'button';
+  const btnHref = typeof href !== 'undefined' ? href : null;
+  const btnIcon = typeof icon !== 'undefined' ? icon : null;
+  const btnDisabled = typeof disabled !== 'undefined' && disabled;
+  const btnId = typeof id !== 'undefined' ? id : null;
+
+  const variants = {
+    primary: 'bg-indigo-600 text-white hover:bg-indigo-700 border-transparent',
+    secondary: 'bg-white text-slate-900 border-slate-300 hover:bg-slate-50',
+    ghost: 'bg-transparent text-slate-600 border-transparent hover:bg-slate-100 hover:text-slate-900',
+    danger: 'bg-red-500 text-white hover:bg-red-600 border-transparent',
+  };
+  const sizes = {
+    sm: 'px-3 py-1.5 text-xs',
+    md: 'px-4 py-2 text-sm',
+    lg: 'px-5 py-2.5 text-base',
+  };
+  const btnClass = 'inline-flex items-center justify-center gap-2 rounded-lg border font-semibold whitespace-nowrap transition focus:outline-none focus:ring-2 focus:ring-indigo-500/30 disabled:cursor-not-allowed disabled:opacity-50 ' + variants[btnVariant] + ' ' + sizes[btnSize];
+%>
+
+<% if (btnHref && !btnDisabled) { %>
+<a href="<%= btnHref %>" class="<%= btnClass %> no-underline hover:no-underline"<%= btnId ? ' id="' + btnId + '"' : '' %>>
+  <% if (btnIcon === 'plus') { %><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg><% } %>
+  <% if (btnIcon === 'filter') { %><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg><% } %>
+  <%= btnLabel %>
+</a>
+<% } else { %>
+<button type="<%= btnType %>" class="<%= btnClass %>"<%= btnId ? ' id="' + btnId + '"' : '' %><%= btnDisabled ? ' disabled' : '' %>>
+  <% if (btnIcon === 'plus') { %><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg><% } %>
+  <% if (btnIcon === 'filter') { %><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg><% } %>
+  <%= btnLabel %>
+</button>
+<% } %>

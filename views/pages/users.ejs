@@ -1,0 +1,34 @@
+<div class="mb-6">
+  <p class="text-sm text-slate-500">Manage all users in your system.</p>
+</div>
+
+<div class="mb-4 flex flex-wrap items-center gap-3">
+  <%- sen.component('search-bar', { id: 'users-search', placeholder: 'Search by name or email...' }) %>
+  <%- sen.component('filter', { id: 'status-filter', label: 'Status', name: 'status', options: ['active', 'inactive'] }) %>
+  <%- sen.component('filter', { id: 'users-role-filter', label: 'Role', name: 'role', options: ['Admin', 'Editor', 'Viewer'] }) %>
+  <%- sen.component('calendar', { id: 'users-date', label: 'Created after', name: 'created_after' }) %>
+  <div class="ml-auto">
+    <%- sen.component('button', { label: 'Add User', variant: 'primary', icon: 'plus' }) %>
+  </div>
+</div>
+
+<div class="rounded-xl border border-slate-200 bg-white shadow-sm">
+  <div class="p-5">
+    <%
+      const columns = [
+        { key: 'name', label: 'Name' },
+        { key: 'email', label: 'Email' },
+        { key: 'role', label: 'Role' },
+        { key: 'status', label: 'Status' },
+        { key: 'created_at', label: 'Created' },
+      ];
+    %>
+    <%- sen.component('table', { id: 'users-table', columns: columns, rows: users, cardTitle: 'name' }) %>
+  </div>
+</div>
+
+<script>
+  document.getElementById('users-search')?.setAttribute('data-table-search', '');
+  document.getElementById('status-filter')?.setAttribute('data-table-filter', '');
+  document.getElementById('users-role-filter')?.setAttribute('data-table-filter', '');
+</script>

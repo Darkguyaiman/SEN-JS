@@ -1,0 +1,80 @@
+<%
+  const tableId = typeof id !== 'undefined' ? id : 'sen-table';
+  const tableColumns = typeof columns !== 'undefined' ? columns : [];
+  const tableRows = typeof rows !== 'undefined' ? rows : [];
+  const tableEmpty = typeof emptyMessage !== 'undefined' ? emptyMessage : 'No records found';
+  const cardTitleKey = typeof cardTitle !== 'undefined' ? cardTitle : (tableColumns[0] && tableColumns[0].key) || 'id';
+
+  const badgeColors = {
+    active: 'bg-emerald-100 text-emerald-800',
+    inactive: 'bg-red-100 text-red-800',
+    pending: 'bg-amber-100 text-amber-800',
+  };
+%>
+
+<div data-sen-table id="<%= tableId %>">
+  <!-- Desktop table -->
+  <div class="hidden overflow-x-auto md:block">
+    <table class="w-full border-collapse text-sm" role="table">
+      <thead class="bg-slate-50">
+        <tr>
+          <% tableColumns.forEach(function(col) { %>
+          <th scope="col" class="whitespace-nowrap border-b border-slate-200 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500 <%= col.className || '' %>"<%= col.width ? ' style="width:' + col.width + '"' : '' %>>
+            <%= col.label %>
+          </th>
+          <% }); %>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (!tableRows.length) { %>
+        <tr>
+          <td colspan="<%= tableColumns.length %>" class="px-4 py-8 text-center text-slate-500"><%= tableEmpty %></td>
+        </tr>
+        <% } %>
+        <% tableRows.forEach(function(row, rowIndex) { %>
+        <tr class="transition hover:bg-indigo-50/30" data-row-index="<%= rowIndex %>">
+          <% tableColumns.forEach(function(col) {
+               const cellValue = row[col.key];
+          %>
+          <td data-label="<%= col.label %>" class="border-b border-slate-200 px-4 py-3.5 align-middle <%= col.className || '' %>">
+            <% if (col.key === 'status' && cellValue) { %>
+            <span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize <%= badgeColors[cellValue] || 'bg-slate-100 text-slate-700' %>"><%= cellValue %></span>
+            <% } else { %>
+            <%= cellValue != null ? cellValue : '' %>
+            <% } %>
+          </td>
+          <% }); %>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Mobile cards -->
+  <div class="space-y-3 md:hidden" aria-label="Data cards">
+    <% if (!tableRows.length) { %>
+    <div class="py-8 text-center text-slate-500"><%= tableEmpty %></div>
+    <% } %>
+    <% tableRows.forEach(function(row, rowIndex) { %>
+    <article class="rounded-xl border border-slate-200 bg-white p-4 shadow-sm" data-row-index="<%= rowIndex %>">
+      <header class="mb-3 flex items-center justify-between gap-3 border-b border-slate-200 pb-3">
+        <h3 class="text-base font-bold"><%= row[cardTitleKey] %></h3>
+        <% if (row.status) { %>
+        <span class="inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize <%= badgeColors[row.status] || 'bg-slate-100 text-slate-700' %>"><%= row.status %></span>
+        <% } %>
+      </header>
+      <dl class="space-y-2">
+        <% tableColumns.forEach(function(col) {
+             if (col.key === cardTitleKey) return;
+             const cellValue = row[col.key];
+        %>
+        <div class="flex items-baseline justify-between gap-4 text-sm">
+          <dt class="shrink-0 font-medium text-slate-500"><%= col.label %></dt>
+          <dd class="break-words text-right font-medium"><%= cellValue != null ? cellValue : '—' %></dd>
+        </div>
+        <% }); %>
+      </dl>
+    </article>
+    <% }); %>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="mb-6">
+  <p class="text-sm text-slate-500">
+    <% if (typeof dbConnected !== 'undefined' && !dbConnected) { %>
+    Running with demo data — connect MySQL to load live records.
+    <% } else { %>
+    Overview of your application metrics and recent activity.
+    <% } %>
+  </p>
+</div>
+
+<div class="mb-4 flex flex-wrap items-center gap-3">
+  <%- sen.component('search-bar', { id: 'dashboard-search', placeholder: 'Search users...' }) %>
+  <%- sen.component('filter', { id: 'role-filter', label: 'Role', name: 'role', options: ['Admin', 'Editor', 'Viewer'] }) %>
+  <%- sen.component('calendar', { id: 'date-range', label: 'Date range', range: true }) %>
+  <div class="ml-auto flex gap-2">
+    <%- sen.component('button', { label: 'Export', variant: 'secondary', icon: 'filter' }) %>
+    <%- sen.component('button', { label: 'Add User', variant: 'primary', icon: 'plus', href: '#' }) %>
+  </div>
+</div>
+
+<div class="rounded-xl border border-slate-200 bg-white shadow-sm">
+  <div class="p-5">
+    <%
+      const columns = [
+        { key: 'name', label: 'Name' },
+        { key: 'email', label: 'Email' },
+        { key: 'role', label: 'Role' },
+        { key: 'status', label: 'Status' },
+        { key: 'created_at', label: 'Created' },
+      ];
+    %>
+    <%- sen.component('table', { id: 'users-table', columns: columns, rows: users, cardTitle: 'name' }) %>
+  </div>
+</div>
+
+<script>
+  document.getElementById('dashboard-search')?.setAttribute('data-table-search', '');
+  document.getElementById('role-filter')?.setAttribute('data-table-filter', '');
+</script>

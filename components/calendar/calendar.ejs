@@ -1,0 +1,43 @@
+<%
+  const calId = typeof id !== 'undefined' ? id : 'sen-calendar';
+  const calName = typeof fieldName !== 'undefined' ? fieldName : (typeof name !== 'undefined' ? name : 'date');
+  const calLabel = typeof label !== 'undefined' ? label : 'Select date';
+  const calValue = typeof value !== 'undefined' ? value : '';
+  const calMin = typeof min !== 'undefined' ? min : '';
+  const calMax = typeof max !== 'undefined' ? max : '';
+  const isRange = typeof range !== 'undefined' && range;
+
+  const dateInputClass = 'sen-input pl-10 [color-scheme:light]';
+  const calIcon = '<svg class="pointer-events-none absolute left-3 h-[18px] w-[18px] text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>';
+%>
+
+<% if (isRange) { %>
+<div class="flex flex-col gap-1.5" data-sen-calendar-range id="<%= calId %>">
+  <span class="text-xs font-semibold text-slate-500"><%= calLabel %></span>
+  <div class="flex flex-wrap items-end gap-3">
+    <div class="min-w-[140px] flex-1">
+      <label class="mb-1 block text-xs font-semibold text-slate-500" for="<%= calId %>-start">From</label>
+      <div class="relative">
+        <%- calIcon %>
+        <input type="date" id="<%= calId %>-start" name="<%= typeof startName !== 'undefined' ? startName : 'start_date' %>" class="<%= dateInputClass %>" value="<%= typeof startValue !== 'undefined' ? startValue : '' %>" <%= calMin ? 'min="' + calMin + '"' : '' %> <%= calMax ? 'max="' + calMax + '"' : '' %>>
+      </div>
+    </div>
+    <span class="pb-2.5 text-sm text-slate-500">to</span>
+    <div class="min-w-[140px] flex-1">
+      <label class="mb-1 block text-xs font-semibold text-slate-500" for="<%= calId %>-end">To</label>
+      <div class="relative">
+        <%- calIcon %>
+        <input type="date" id="<%= calId %>-end" name="<%= typeof endName !== 'undefined' ? endName : 'end_date' %>" class="<%= dateInputClass %>" value="<%= typeof endValue !== 'undefined' ? endValue : '' %>" <%= calMin ? 'min="' + calMin + '"' : '' %> <%= calMax ? 'max="' + calMax + '"' : '' %>>
+      </div>
+    </div>
+  </div>
+</div>
+<% } else { %>
+<div class="flex flex-col gap-1.5" data-sen-calendar id="<%= calId %>">
+  <label class="text-xs font-semibold text-slate-500" for="<%= calId %>-input"><%= calLabel %></label>
+  <div class="relative">
+    <%- calIcon %>
+    <input type="date" id="<%= calId %>-input" name="<%= calName %>" class="<%= dateInputClass %>" value="<%= calValue %>" <%= calMin ? 'min="' + calMin + '"' : '' %> <%= calMax ? 'max="' + calMax + '"' : '' %>>
+  </div>
+</div>
+<% } %>

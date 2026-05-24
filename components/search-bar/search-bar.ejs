@@ -1,0 +1,23 @@
+<%
+  const inputId = typeof id !== 'undefined' ? id : 'sen-search';
+  const inputPlaceholder = typeof placeholder !== 'undefined' ? placeholder : 'Search...';
+  const inputName = typeof fieldName !== 'undefined' ? fieldName : (typeof name !== 'undefined' ? name : 'q');
+  const inputValue = typeof value !== 'undefined' ? value : '';
+%>
+
+<div class="relative flex min-w-[200px] items-center" data-sen-search>
+  <svg class="pointer-events-none absolute left-3 h-[18px] w-[18px] text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+    <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+  </svg>
+  <input
+    type="search"
+    id="<%= inputId %>"
+    name="<%= inputName %>"
+    class="sen-input pl-10 pr-8"
+    placeholder="<%= inputPlaceholder %>"
+    value="<%= inputValue %>"
+    autocomplete="off"
+    aria-label="<%= inputPlaceholder %>"
+  >
+  <button type="button" class="absolute right-2 hidden rounded px-1.5 text-xl leading-none text-slate-400 hover:bg-slate-200 hover:text-slate-700" data-search-clear aria-label="Clear search">&times;</button>
+</div>

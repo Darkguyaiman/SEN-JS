@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> — Sen JS</title>
+  <link rel="stylesheet" href="/assets/sen.css">
+</head>
+<body>
+  <div class="flex min-h-screen" id="sen-app">
+    <%- sen.component('sidebar', {
+      items: typeof nav !== 'undefined' ? nav : [],
+      brand: 'Sen JS',
+      user: { name: 'Mohamed Aiman', role: 'Developer' }
+    }) %>
+
+    <div class="flex min-w-0 flex-1 flex-col transition-all duration-150 md:ml-64" id="sen-main">
+      <%- sen.component('header', {
+        title: typeof title !== 'undefined' ? title : '',
+        breadcrumbs: typeof breadcrumbs !== 'undefined' ? breadcrumbs : [],
+        user: typeof user !== 'undefined' ? user : { name: 'User', role: 'Member' }
+      }) %>
+
+      <main class="w-full max-w-[1400px] flex-1 p-4 md:p-6">
+        <%- body %>
+      </main>
+    </div>
+  </div>
+
+  <div class="fixed inset-0 z-[90] hidden bg-slate-900/40" id="sen-overlay"></div>
+
+  <% sen.assets().js.forEach(function(name) { %>
+  <script src="/components/<%= name %>/<%= name %>.js" defer></script>
+  <% }); %>
+</body>
+</html>

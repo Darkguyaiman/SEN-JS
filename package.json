@@ -1,0 +1,26 @@
+{
+  "name": "sen-js",
+  "version": "0.1.0",
+  "description": "Sen JS — high-performance admin UI for Express, EJS, and MySQL",
+  "main": "server.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./public/assets/sen.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./public/assets/sen.css --watch",
+    "start": "node server.js",
+    "dev": "concurrently \"npm run watch:css\" \"node --watch server.js\""
+  },
+  "keywords": ["express", "ejs", "mysql", "tailwindcss", "admin", "sen-js"],
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.2",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
+  }
+}
