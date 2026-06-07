@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Segoe UI', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Outfit', 'Segoe UI', 'system-ui', '-apple-system', 'sans-serif'],
       },
     },
   },

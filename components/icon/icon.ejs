@@ -1,0 +1,40 @@
+<%
+  const iconName = typeof name !== 'undefined' ? name : 'dashboard';
+  const iconClass = typeof className !== 'undefined' ? className : '';
+  const iconLabel = typeof label !== 'undefined' ? label : '';
+  const iconDecorative = typeof decorative === 'undefined' ? true : !!decorative;
+
+  const aliases = {
+    add: 'plus',
+    calendar: 'calendar-days',
+    chart: 'bar-chart-4',
+    chevron: 'chevron-down',
+    close: 'xmark',
+    dashboard: 'dashboard-square-1',
+    filter: 'sliders-horizontal-square-2',
+    grid: 'dashboard-square-1',
+    menu: 'menu-hamburger-1',
+    plus: 'plus',
+    reports: 'bar-chart-4',
+    search: 'search-1',
+    settings: 'gear-1',
+    users: 'user-multiple-4',
+    x: 'xmark',
+  };
+
+  const normalizedName = String(iconName)
+    .trim()
+    .replace(/^lni-/, '')
+    .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+    .replace(/[\s_]+/g, '-')
+    .toLowerCase();
+
+  const resolvedIcon = aliases[normalizedName] || normalizedName;
+  const ariaHidden = iconDecorative ? 'true' : 'false';
+  const ariaLabel = !iconDecorative && iconLabel ? iconLabel : null;
+%>
+
+<i
+  class="lni lni-<%= resolvedIcon %><%= iconClass ? ' ' + iconClass : '' %>"
+  <%= ariaLabel ? 'aria-label="' + ariaLabel + '"' : 'aria-hidden="' + ariaHidden + '"' %>
+></i>

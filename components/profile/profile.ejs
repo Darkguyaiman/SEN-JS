@@ -19,7 +19,7 @@
       <span class="block truncate text-xs text-slate-500"><%= profileUser.role %></span>
     </span>
     <% if (!isCompact) { %>
-    <svg class="h-4 w-4 shrink-0 text-slate-400 transition group-data-[open=true]/profile:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    <%- sen.component('icon', { name: 'chevron', className: 'text-xs shrink-0 text-slate-400 transition group-data-[open=true]/profile:rotate-180' }) %>
     <% } %>
   </button>
 

@@ -24,14 +24,12 @@
 
 <% if (btnHref && !btnDisabled) { %>
 <a href="<%= btnHref %>" class="<%= btnClass %> no-underline hover:no-underline"<%= btnId ? ' id="' + btnId + '"' : '' %>>
-  <% if (btnIcon === 'plus') { %><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg><% } %>
-  <% if (btnIcon === 'filter') { %><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg><% } %>
+  <% if (btnIcon) { %><%- sen.component('icon', { name: btnIcon, className: 'text-sm' }) %><% } %>
   <%= btnLabel %>
 </a>
 <% } else { %>
 <button type="<%= btnType %>" class="<%= btnClass %>"<%= btnId ? ' id="' + btnId + '"' : '' %><%= btnDisabled ? ' disabled' : '' %>>
-  <% if (btnIcon === 'plus') { %><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg><% } %>
-  <% if (btnIcon === 'filter') { %><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg><% } %>
+  <% if (btnIcon) { %><%- sen.component('icon', { name: btnIcon, className: 'text-sm' }) %><% } %>
   <%= btnLabel %>
 </button>
 <% } %>

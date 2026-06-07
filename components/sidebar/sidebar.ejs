@@ -2,13 +2,6 @@
   const navItems = typeof items !== 'undefined' ? items : [];
   const brandName = typeof brand !== 'undefined' ? brand : 'Sen JS';
   const currentUser = typeof user !== 'undefined' ? user : { name: 'User', role: 'Member' };
-
-  const icons = {
-    grid: '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>',
-    users: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
-    chart: '<path d="M18 20V10M12 20V4M6 20v-6"/>',
-    settings: '<circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>',
-  };
 %>
 
 <aside
@@ -22,7 +15,7 @@
       <span class="truncate text-lg font-bold group-data-[collapsed=true]/sidebar:md:hidden"><%= brandName %></span>
     </a>
     <button type="button" class="rounded p-1 text-slate-500 hover:bg-slate-100 md:hidden" id="sen-sidebar-close" aria-label="Close menu">
-      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      <%- sen.component('icon', { name: 'close', className: 'text-lg' }) %>
     </button>
   </div>
 
@@ -33,7 +26,7 @@
         <a href="<%= item.href %>"
            class="flex items-center gap-3 rounded-lg px-3.5 py-2.5 text-sm font-medium no-underline transition <%= item.active ? 'bg-indigo-50 text-indigo-600' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' %>"
            <%= item.active ? 'aria-current="page"' : '' %>>
-          <svg class="h-5 w-5 shrink-0 opacity-70" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><%- icons[item.icon] || icons.grid %></svg>
+          <%- sen.component('icon', { name: item.icon || 'dashboard', className: 'text-lg shrink-0 opacity-70' }) %>
           <span class="truncate group-data-[collapsed=true]/sidebar:md:hidden"><%= item.label %></span>
         </a>
       </li>
@@ -47,5 +40,5 @@
 </aside>
 
 <button type="button" class="fixed top-4 left-4 z-[110] flex rounded-lg border border-slate-200 bg-white p-2 text-slate-900 shadow-sm md:hidden" id="sen-sidebar-toggle" aria-label="Toggle sidebar">
-  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  <%- sen.component('icon', { name: 'menu', className: 'text-lg' }) %>
 </button>

@@ -5,39 +5,97 @@
   const calValue = typeof value !== 'undefined' ? value : '';
   const calMin = typeof min !== 'undefined' ? min : '';
   const calMax = typeof max !== 'undefined' ? max : '';
+  const calPlaceholder = typeof placeholder !== 'undefined' ? placeholder : 'Pick a date';
   const isRange = typeof range !== 'undefined' && range;
 
-  const dateInputClass = 'sen-input pl-10 [color-scheme:light]';
-  const calIcon = '<svg class="pointer-events-none absolute left-3 h-[18px] w-[18px] text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>';
-%>
+  const renderPicker = function(config) { %>
+    <div
+      class="sen-date-picker"
+      data-date-picker
+      data-placeholder="<%= config.placeholder %>"
+      <%= config.min ? 'data-min-date="' + config.min + '"' : '' %>
+      <%= config.max ? 'data-max-date="' + config.max + '"' : '' %>
+      <%= config.rangePart ? 'data-range-part="' + config.rangePart + '"' : '' %>
+    >
+      <input type="hidden" name="<%= config.name %>" value="<%= config.value %>" data-date-value>
+      <button
+        type="button"
+        id="<%= config.buttonId %>"
+        class="sen-date-trigger sen-input"
+        data-date-trigger
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="<%= config.buttonId %>-popover"
+      >
+        <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+          <%- sen.component('icon', { name: 'calendar', className: 'text-[18px]' }) %>
+        </span>
+        <span class="sen-date-trigger-text" data-date-display><%= config.value || config.placeholder %></span>
+        <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+          <%- sen.component('icon', { name: 'chevron', className: 'text-xs' }) %>
+        </span>
+      </button>
+
+      <div class="sen-date-popover hidden" id="<%= config.buttonId %>-popover" data-date-popover role="dialog" aria-modal="false">
+        <div class="sen-date-popover-inner">
+          <div class="sen-date-header">
+            <button type="button" class="sen-date-nav" data-date-prev aria-label="Previous month">
+              <%- sen.component('icon', { name: 'chevron-left', className: 'text-sm' }) %>
+            </button>
+            <div class="sen-date-title" data-date-title></div>
+            <button type="button" class="sen-date-nav" data-date-next aria-label="Next month">
+              <%- sen.component('icon', { name: 'chevron-right', className: 'text-sm' }) %>
+            </button>
+          </div>
+
+          <div class="sen-date-weekdays" data-date-weekdays></div>
+          <div class="sen-date-grid" data-date-grid></div>
+        </div>
+      </div>
+    </div>
+<% }; %>
 
 <% if (isRange) { %>
 <div class="flex flex-col gap-1.5" data-sen-calendar-range id="<%= calId %>">
   <span class="text-xs font-semibold text-slate-500"><%= calLabel %></span>
   <div class="flex flex-wrap items-end gap-3">
     <div class="min-w-[140px] flex-1">
-      <label class="mb-1 block text-xs font-semibold text-slate-500" for="<%= calId %>-start">From</label>
-      <div class="relative">
-        <%- calIcon %>
-        <input type="date" id="<%= calId %>-start" name="<%= typeof startName !== 'undefined' ? startName : 'start_date' %>" class="<%= dateInputClass %>" value="<%= typeof startValue !== 'undefined' ? startValue : '' %>" <%= calMin ? 'min="' + calMin + '"' : '' %> <%= calMax ? 'max="' + calMax + '"' : '' %>>
-      </div>
+      <label class="mb-1 block text-xs font-semibold text-slate-500" for="<%= calId %>-start-button">From</label>
+      <% renderPicker({
+        buttonId: calId + '-start-button',
+        name: typeof startName !== 'undefined' ? startName : 'start_date',
+        value: typeof startValue !== 'undefined' ? startValue : '',
+        min: calMin,
+        max: calMax,
+        placeholder: calPlaceholder,
+        rangePart: 'start',
+      }); %>
     </div>
     <span class="pb-2.5 text-sm text-slate-500">to</span>
     <div class="min-w-[140px] flex-1">
-      <label class="mb-1 block text-xs font-semibold text-slate-500" for="<%= calId %>-end">To</label>
-      <div class="relative">
-        <%- calIcon %>
-        <input type="date" id="<%= calId %>-end" name="<%= typeof endName !== 'undefined' ? endName : 'end_date' %>" class="<%= dateInputClass %>" value="<%= typeof endValue !== 'undefined' ? endValue : '' %>" <%= calMin ? 'min="' + calMin + '"' : '' %> <%= calMax ? 'max="' + calMax + '"' : '' %>>
-      </div>
+      <label class="mb-1 block text-xs font-semibold text-slate-500" for="<%= calId %>-end-button">To</label>
+      <% renderPicker({
+        buttonId: calId + '-end-button',
+        name: typeof endName !== 'undefined' ? endName : 'end_date',
+        value: typeof endValue !== 'undefined' ? endValue : '',
+        min: calMin,
+        max: calMax,
+        placeholder: calPlaceholder,
+        rangePart: 'end',
+      }); %>
     </div>
   </div>
 </div>
 <% } else { %>
 <div class="flex flex-col gap-1.5" data-sen-calendar id="<%= calId %>">
-  <label class="text-xs font-semibold text-slate-500" for="<%= calId %>-input"><%= calLabel %></label>
-  <div class="relative">
-    <%- calIcon %>
-    <input type="date" id="<%= calId %>-input" name="<%= calName %>" class="<%= dateInputClass %>" value="<%= calValue %>" <%= calMin ? 'min="' + calMin + '"' : '' %> <%= calMax ? 'max="' + calMax + '"' : '' %>>
-  </div>
+  <label class="text-xs font-semibold text-slate-500" for="<%= calId %>-button"><%= calLabel %></label>
+  <% renderPicker({
+    buttonId: calId + '-button',
+    name: calName,
+    value: calValue,
+    min: calMin,
+    max: calMax,
+    placeholder: calPlaceholder,
+  }); %>
 </div>
 <% } %>

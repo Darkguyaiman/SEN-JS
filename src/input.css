@@ -12,4 +12,85 @@
   .sen-input {
     @apply w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 transition focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20;
   }
+
+  .sen-date-picker {
+    @apply relative;
+  }
+
+  .sen-date-trigger {
+    @apply relative h-11 rounded-xl border-slate-200 bg-white pl-10 pr-10 text-left shadow-sm;
+  }
+
+  .sen-date-trigger:hover {
+    @apply border-slate-300;
+  }
+
+  .sen-date-trigger:focus {
+    @apply border-slate-300 ring-2 ring-slate-900/5;
+  }
+
+  .sen-date-trigger-text {
+    @apply block truncate font-medium;
+  }
+
+  .sen-date-popover {
+    @apply absolute left-0 top-[calc(100%+0.6rem)] z-[220] w-[320px];
+  }
+
+  .sen-date-popover-inner {
+    @apply rounded-[28px] border border-slate-200/90 bg-white p-4 shadow-[0_18px_50px_-28px_rgba(15,23,42,0.38)];
+  }
+
+  .sen-date-header {
+    @apply mb-4 flex items-center justify-between;
+  }
+
+  .sen-date-title {
+    @apply text-[18px] font-semibold tracking-[-0.02em] text-slate-950;
+  }
+
+  .sen-date-nav {
+    @apply flex h-10 w-10 items-center justify-center rounded-full text-slate-900 transition hover:bg-slate-100;
+  }
+
+  .sen-date-weekdays {
+    @apply mb-3 grid grid-cols-7 gap-y-2;
+  }
+
+  .sen-date-weekday {
+    @apply text-center text-[15px] font-normal text-slate-500;
+  }
+
+  .sen-date-grid {
+    @apply grid grid-cols-7 gap-y-2;
+  }
+
+  .sen-date-day {
+    @apply mx-auto flex h-11 w-11 items-center justify-center rounded-[16px] text-[18px] font-normal text-slate-950 transition;
+  }
+
+  .sen-date-day:hover {
+    @apply bg-slate-100;
+  }
+
+  .sen-date-day.is-outside {
+    @apply text-slate-400;
+  }
+
+  .sen-date-day.is-selected {
+    @apply bg-slate-100 text-slate-950;
+  }
+
+  .sen-date-day.is-today:not(.is-selected) {
+    @apply ring-1 ring-slate-200;
+  }
+
+  .sen-date-day.is-disabled,
+  .sen-date-day.is-disabled:hover {
+    @apply cursor-not-allowed text-slate-300;
+  }
+
+  .sen-date-day.is-outside.is-disabled {
+    @apply text-slate-200;
+  }
 }

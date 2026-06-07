@@ -13,6 +13,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/vendor/lineicons', express.static(path.join(__dirname, 'node_modules', 'lineicons', 'dist')));
 app.use('/components', express.static(path.join(__dirname, 'components')));
 app.use(componentRegistry.middleware());
 
