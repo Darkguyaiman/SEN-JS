@@ -122,3 +122,8 @@ router.get('/dashboard', (req, res) => {
 ## License
 
 MIT
+
+
+## Author
+
+Built by **Mohamed Aiman (Darkguyaiman)**. Explore my web development projects and get in touch at **[darkguyaiman.com](https://darkguyaiman.com/)**.
